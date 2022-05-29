@@ -1,7 +1,7 @@
 'use strict';
 
-var response = require( './res');
-var connection = require('./koneksi');
+var response    = require( './res');
+var connection  = require('./koneksi');
 
 exports.index = function (req, res){
     response.ok("Aplikasi : Rest API berjalan", res)
@@ -28,6 +28,25 @@ exports.tampilkanmahasiswaid = function(req,res){
             }
             else{
                 response.ok(rows, res)
+            }
+        });
+};
+
+// menambahkan data mahasiswa
+exports.tambahMahasiswa = function(req,res){
+    var nim     = req.body.nim;
+    var nama    = req.body.nama;
+    var jurusan = req.body.jurusan;
+    // atau
+    // const { nim, Nama, jurusan } = req.body;
+    connection.query('INSERT INTO mahasiswa (nim, nama , jurusan) VALUES(?,?,?)',
+            [nim, nama , jurusan],
+        function(errors , rows , fields){
+            if(errors){
+                console.log(errors);
+            }
+            else{
+                response.ok('Berhasil menambahkan data', res);
             }
         }
     )
