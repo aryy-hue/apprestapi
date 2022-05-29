@@ -2,10 +2,10 @@ var mysql = require('mysql');
 
 //membuat koneksi DB
 const conn = mysql.createConnection({
-    host:"localhost",
-    user:"route",
-    password: "",
-    database:'restapidb'
+    host:'localhost',
+    user:'root',
+    password:'',
+    database:'restapidb',
 });
 
 conn.connect((err)=>{
