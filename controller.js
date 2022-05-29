@@ -2,7 +2,7 @@
 
 var response    = require( './res');
 var connection  = require('./koneksi');
-const { off } = require('./koneksi');
+const { off, connect } = require('./koneksi');
 
 exports.index = function (req, res){
     response.ok("Aplikasi : Rest API berjalan", res)
@@ -66,6 +66,20 @@ exports.ubahMahasiswa = function(req,res){
             }
             else{
                 response.ok('Data berhasil di ubah',res);
+            }
+        }
+    );
+}
+// menghapus mahasiswa berdasarkan id
+exports.hapusMahasiswa = function(req, res){
+    var id      = req.body.id_mahasiswa;
+    connection.query('DELETE FROM mahasiswa WHERE id_mahasiswa=?',[id],
+        function(errors, rows, fields){
+            if(errors){
+                console.log(errors);
+            }
+            else{
+                response.ok('Data berhasil di hapus!!',res);
             }
         }
     );
