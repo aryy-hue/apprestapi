@@ -59,7 +59,7 @@ exports.ubahMahasiswa = function(req,res){
     var nama    = req.body.nama;
     var jurusan = req.body.jurusan;
 
-    connection.query('UPDATE mahasiswa SET nim=? ,  nama=? , jurusan=? WHERE id_mahasiswa=?',[ nim, nama , jurusan ,id],
+    connection.query('UPDATE mahasiswa SET nim=? ,  nama=? , jurusan=? WHERE id_mahasiswa=?',[ nim, nama , jurusan ,id], //berurutan
         function(errors, rows, fields){
             if(errors){
                 console.log(errors);
@@ -83,4 +83,18 @@ exports.hapusMahasiswa = function(req, res){
             }
         }
     );
+}
+//menampilkan matakuliah group
+exports.tampilGroupMatakuliah = function(req , res){
+    connection.query('SELECT mahasiswa.id_mahasiswa, mahasiswa.nim, mahasiswa.nama, mahasiswa.jurusan , matakuliah.id_matakuliah , matakuliah.matakuliah ,matakuliah.sks FROM krs JOIN matakuliah JOIN mahasiswa WHERE krs.id_matakuliah = matakuliah.id_matakuliah AND krs.id_mahasiswa = mahasiswa.id_mahasiswa ORDER BY mahasiswa.id_mahasiswa;',
+        function(errors , rows , fields){
+            if(errors){
+                console.log(errors);
+            }
+            else{
+                response.okenested(rows,res);
+            }
+        }
+    )
+
 }
