@@ -10,4 +10,6 @@ module.exports = function(app){
         .get(jsonku.tampilkanmahasiswaid);
     app.route('/tambah')
         .post(jsonku.tambahMahasiswa);
+    app.route('/ubah')
+        .put(jsonku.ubahMahasiswa);
     }
